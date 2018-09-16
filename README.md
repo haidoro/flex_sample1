@@ -85,8 +85,34 @@ hoverで画像が拡大するのは「transform: scale(1.05)」を使います�
     transform: scale(0.95); }
 ```
 
+## features作成
 
+4カラムのグリッドを基本に作成します。
+WebアイコンはFont AwesomeをCDNで読み込んでいます。  
+Webアイコンの色はベタ塗りではなくグラデーションを活用しています。文字にグラデーションをつけた方法と同様の手法をとります。
 
+```
+.feature-box__icon{
+display:inline-block;
+background-image:linear-gradient(to right, $color-primary-light, $color-primary-dark);
+-webkit-background-clip: text;
+background-clip: text;
+color:transparent;}
+```
+
+背景の傾きは「.feature-box」に対して「skewY(-7deg)」で傾けました。けれどもこのままでは中のテキストも傾きます。従って、テキスト部分を逆に傾ける処置が必要です。
+
+```
+.section-features {
+  padding: 20rem 0;
+  background: linear-gradient(to right bottom, rgba(0, 225, 255, 0.8), rgba(38, 0, 255, 0.8)), url(../img/features.jpg) center top/cover;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  transform: skewY(-7deg);
+  margin-top: -10rem; }
+  
+.section-features > * {
+    transform: skewY(7deg);}
+```
 
 
 

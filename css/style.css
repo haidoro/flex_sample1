@@ -235,6 +235,37 @@ body {
   -ms-transform: translateY(0);
   -o-transform: translateY(0); }
 
+.feature-box {
+  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  transition: transform .3s;
+  -webkit-transition: transform .3s;
+  -moz-transition: transform .3s;
+  -ms-transition: transform .3s;
+  -o-transition: transform .3s; }
+  .feature-box__icon {
+    font-size: 6rem;
+    margin-bottom: .5rem;
+    display: inline-block;
+    background-image: linear-gradient(to right, rgba(0, 225, 255, 0.8), rgba(38, 0, 255, 0.8));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; }
+  .feature-box:hover {
+    transform: translateY(-1.5rem) scale(1.03);
+    -webkit-transform: translateY(-1.5rem) scale(1.03);
+    -moz-transform: translateY(-1.5rem) scale(1.03);
+    -ms-transform: translateY(-1.5rem) scale(1.03);
+    -o-transform: translateY(-1.5rem) scale(1.03); }
+
 .header {
   height: 95vh;
   background: linear-gradient(to right bottom, rgba(0, 225, 255, 0.8), rgba(38, 0, 255, 0.8)), url(../img/hero.jpg) center top/cover;
@@ -290,3 +321,21 @@ body {
   background-color: #f7f7f7;
   padding: 25rem 0;
   margin-top: -25vh; }
+
+.section-features {
+  padding: 20rem 0;
+  background: linear-gradient(to right bottom, rgba(0, 225, 255, 0.8), rgba(38, 0, 255, 0.8)), url(../img/features.jpg) center top/cover;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  transform: skewY(-7deg);
+  -webkit-transform: skewY(-7deg);
+  -moz-transform: skewY(-7deg);
+  -ms-transform: skewY(-7deg);
+  -o-transform: skewY(-7deg);
+  margin-top: -10rem; }
+  .section-features > * {
+    transform: skewY(7deg);
+    -webkit-transform: skewY(7deg);
+    -moz-transform: skewY(7deg);
+    -ms-transform: skewY(7deg);
+    -o-transform: skewY(7deg); }
