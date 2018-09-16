@@ -187,10 +187,6 @@ body {
   margin: 0 auto; }
   .row:not(:last-child) {
     margin-bottom: 8rem; }
-  .row::after {
-    content: "";
-    display: table;
-    clear: both; }
   .row [class^="col-"] {
     background-color: lightgreen; }
     .row [class^="col-"]:not(:last-child) {
