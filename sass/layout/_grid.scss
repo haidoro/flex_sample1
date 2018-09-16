@@ -1,4 +1,5 @@
 .row{
+  display:flex;
   max-width:$grid-width;
   background-color: #eee;
   margin:0 auto;
@@ -10,7 +11,6 @@
 
   [class^="col-"]{
     background-color: lightgreen;
-    float:left;
     &:not(:last-child) {
         margin-right: $gutter-horizontal;
     }

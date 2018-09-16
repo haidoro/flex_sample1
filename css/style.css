@@ -181,6 +181,7 @@ body {
     -o-transform:translate(-50%,-40%);
 } */
 .row {
+  display: flex;
   max-width: 114rem;
   background-color: #eee;
   margin: 0 auto; }
@@ -191,8 +192,7 @@ body {
     display: table;
     clear: both; }
   .row [class^="col-"] {
-    background-color: lightgreen;
-    float: left; }
+    background-color: lightgreen; }
     .row [class^="col-"]:not(:last-child) {
       margin-right: 6rem; }
   .row .col-1-of-2 {
