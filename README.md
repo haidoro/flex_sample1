@@ -4,7 +4,7 @@
 通常は10pxにしておくとそれぞれの要素での値を決めやすくなります。ただし、基準の数値においても固定の数値を使用するとユーザーの設定次第ではレイアウトに影響が出ます。
 したがってhtmlのfont-sizeは62.5％という記述にします。
 
-##header  
+## header  
 header部分のHTMLコードはシンプルなものです。
 h1要素の領域とボタン領域の2つの領域を作ります。
 
@@ -66,6 +66,23 @@ section要素内のh2のテキストがグラデーションになっていま�
  -webkit-background-clip: text;
  background-clip: text;
  color: transparent;
+```
+
+### img画像の重ね方
+
+imgタグで挿入された画像の重ね方は、各画像に対して「position: absolute」をかけるだけです。絶対配置の基準を変更するために、親要素の「.composition」には「position: relative」を設定しておきます。これで3枚の画像は同じ場所で重なります。
+あとは1枚づつ画像の「left」「top」の座標を変更してずらしてやるだけです。
+
+hoverで画像が拡大するのは「transform: scale(1.05)」を使います。また画像の周りの枠は「outline:1rem solid rgba($color-primary, .5)」を使います。  
+また、枠線と画像に間隔を入れるのは「outline-offset: 2rem」を使います。
+画像の入れ替えは「hover」時にz-indexの値を大きくすることで実現しています。
+
+面白いテクニックとして画像にhoverすると対象の画像が拡大するのは上記の方法で実現されますが、対象の画像以外は縮小されています。これは次のコードで行っています。  
+セレクタの書き方が参考になるはずです。
+
+```
+ .composition:hover .composition__photo:not(:hover) {
+    transform: scale(0.95); }
 ```
 
 
