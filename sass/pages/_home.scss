@@ -7,8 +7,6 @@
 .section-features {
     padding:20rem 0;
     background: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark),    url(../img/features.jpg) center top/ cover;
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
     transform: skewY(-7deg);
     -webkit-transform: skewY(-7deg);
     -moz-transform: skewY(-7deg);
