@@ -360,7 +360,7 @@ body {
   height: 100vh;
   position: fixed;
   top: 0;
-  left: 0;
+  left: -900px;
   z-index: 1500;
   opacity: 0;
   width: 0;
@@ -414,6 +414,7 @@ body {
   -o-transform: scale(80); }
 
 .navigation__checkbox:checked ~ .navigation__nav {
+  left: 0;
   opacity: 1;
   width: 100%; }
 
@@ -469,13 +470,11 @@ body {
 .section-about {
   background-color: #f7f7f7;
   padding: 25rem 0;
-  margin-top: -25vh; }
+  margin-top: -25rem; }
 
 .section-features {
   padding: 20rem 0;
   background: linear-gradient(to right bottom, rgba(0, 225, 255, 0.8), rgba(38, 0, 255, 0.8)), url(../img/features.jpg) center top/cover;
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
   transform: skewY(-7deg);
   -webkit-transform: skewY(-7deg);
   -moz-transform: skewY(-7deg);
@@ -488,3 +487,8 @@ body {
     -moz-transform: skewY(7deg);
     -ms-transform: skewY(7deg);
     -o-transform: skewY(7deg); }
+
+.section-tours {
+  background-color: #f7f7f7;
+  padding: 25rem 0 50rem 0;
+  margin-top: -10rem; }

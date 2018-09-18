@@ -35,11 +35,6 @@
         background-image: radial-gradient($color-primary-light,$color-primary-dark);
         z-index:1000;
         transition:transform .8s;
-        //transform:scale(80);
-        //-webkit-transform:scale(80);
-        //-moz-transform:scale(80);
-        //-ms-transform:scale(80);
-        //-o-transform:scale(80);
         -webkit-transition:transform .8s;
         -moz-transition:transform .8s;
         -ms-transition:transform .8s;
@@ -49,7 +44,7 @@
         height:100vh;
         position: fixed;
         top:0;
-        left:0;
+        left:-900px;
         z-index:1500;
         // background-color:red;
         opacity:0;
@@ -116,6 +111,7 @@
         -o-transform: scale(80);
     }
     &__checkbox:checked ~ &__nav {
+        left:0;
         opacity:1;
         width:100%;
     }
