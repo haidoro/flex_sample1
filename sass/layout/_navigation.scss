@@ -115,7 +115,7 @@
         -ms-transform: scale(80);
         -o-transform: scale(80);
     }
-    &__checkbox:checked~&__nav {
+    &__checkbox:checked ~ &__nav {
         opacity:1;
         width:100%;
     }
