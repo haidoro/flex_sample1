@@ -22,9 +22,8 @@
             margin-bottom: $gutter-vertical-small;
         }
     }
-
-    @include respond(tab-port){
-        flex:1 1 auto !important;
+    @include respond(tab-port) {
+        width: 100% !important;
     }
 
   }

@@ -498,7 +498,7 @@ body {
         margin-bottom: 6rem; } }
   @media (max-width: 900px) {
     .row [class^="col-"] {
-      flex: 1 1 auto !important; } }
+      width: 100% !important; } }
   .row .col-1-of-2 {
     width: calc((100% - 6rem) / 2); }
   .row .col-1-of-3 {
