@@ -233,10 +233,10 @@ clip-path:polygon(0 0, 100% 0, 100% 85%,0 100%);
 
 この写真の加工は通常「border-radius」プロパティで値を50％にすると円形になります。
 けれども今回は別の方法で、「shape-outside」プロパティと「clip-path」プロパティを使って円形にしています。
-  
+
 この面倒な方法を取っているのは、完成品で確認してみると単純に写真とテキストが左右に並んだ状態ではなく、写真の円形に対してテキストが円形に回り込んでいることです。    
 このような形状にするには写真を「border-radius」で加工するとできません。
-    
+​    
 まず「shape-outside」で丸いアウトラインを作成しておいて、「clip-path」プロパティを使ってマスクするとこのような形状が可能になります。  
 またテキストはflexで横並びにするのではなくfloatでテキストを流し込みます。これこそfloatの出番です！
 
@@ -270,6 +270,294 @@ mp4は正確にはMPEG-4 / H.264ビデオフォーマットのことです。
 またコンテンツ部分の邪魔にならないように「opacity:.15」で透明度をつけます。
 
 コンテンツ部分の量次第で高さが変わります。これにフィットさせる方法として「object-fit:cover」を活用しています。
+
+
+
+## SASSの活用
+
+これまでの記述をSASSで記述します。
+
+フォルダはabstract, base,component,layout,pages,を作成して、それぞれ分割してSASSで記述します。main.scssがメインとなり@importでパーシャル化したそれぞれのファイルをインポートします。
+
+1. abstractフォルダには変数や関数あるいはmixinファイルを含めます。
+
+2. baseフォルダはanimationファイル、baseファイル、typographyファイル、utilitiesファイルを含めます。
+3. componentsフォルダはbg-videoファイル、buttonファイル、cardファイル、compositionファイル、feature-boxファイル、storyファイルを含めます。
+4. layoutフォルダはfooterファイル、headerファイル、gridファイル、navigationファイルが含まれます。
+5. pagesフォルダにはhomeファイルが含まれます。
+
+## メディアクエリの活用
+
+今回のサイトはデスクトップファーストです。
+
+そのため、メディアクエリの外が基本デスクトップになります。
+
+### mixinの活用
+
+mixinを活用することで効率的にメディアクエリを記述することができます。
+
+_mixinファイルを別途作成して、ここにmixinを記述していきます。
+
+カスタマイズしやすいようにブレイクポイントをコメントで記述しておくとよいでしょう。
+
+```css
+/*
+0-600px: phone
+601-900px: tab-port
+901-1200px: tab-land
+1201-1800px: normal style
+1801px- : big-desktop
+*/
+```
+
+
+
+HTMLセレクタにfont-size:62.5%としてページ全体のフォントサイズや各種単位をrem指定した場合、この値を変更することで全体の数値の値を一括で変更できます。
+
+これはデバイスごとに拡大縮小するためのベストプラクティスです。
+
+次の例では600px以下の場合に、font-size:50%にする設定をmixnで記述したものです。
+
+
+
+mixinの記述内容
+
+```css
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media (max-width: 600px) {
+            @content
+        };
+    }
+```
+
+
+
+セレクタへの記述内容
+
+```css
+html{
+    @include respond-phone{
+        font-size:50%;
+    }
+}
+```
+
+
+
+SASSのifディレクティブを使うともっと便利に記述できます。
+
+**ブレイクポイントはpxやremで指定するのではなく、emで指定するのがベストです。remやpxで指定するとsafariで不具合が出ます。**
+
+```css
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37.5em) { @content };    //600px
+    }
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) { @content };     //900px
+    }
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) { @content };    //1200px
+    }
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) { @content };    //1800
+    }
+}
+```
+
+セレクタの記述
+
+```css
+html {
+    font-size: 62.5%;   
+    @include respond(big-desktop) {
+        font-size: 75%; //1rem=12px
+    }
+    @include respond(tab-land) {
+        font-size: 56.25%; //1rem=9px
+    }
+    @include respond(tab-port) {
+        font-size: 50%;
+    }
+    @include respond(phone) {
+        font-size: 50%; //1rem=8px
+    }
+}
+```
+
+次にbody要素のpaddingを設定
+
+_baxe.scssに次の設定を追加
+
+```css
+@include respond(tab-port) {
+        padding:0;
+ }
+```
+
+
+
+
+
+.heading-primary—mainに次の設定を追加
+
+```css
+ @include respond(phone) {
+            letter-spacing: 1rem;
+            font-size:5rem;
+            
+        }
+```
+
+
+
+.heading-primary—subに次の設定を追加
+
+```css
+@include respond(phone) {
+            letter-spacing: .5rem;
+}
+```
+
+
+
+
+
+### グリッドの設定
+
+
+
+.rowセレクタに次の設定を入れることで、tab-portサイズ以下でグリッド部分はシングルカラムにします。max-widthで幅を50remにしています。
+
+```css
+ @include respond(tab-port) {
+      flex-direction: column;
+      max-width:50rem;
+  }
+```
+
+
+
+[class^="col-"]セレクタに対して次の設定をすることで幅を親要素に対して100％にします。親要素は上で使った.rowになります。
+
+```css
+ @include respond(tab-port) {
+        width: 100% !important;
+  }
+```
+
+
+
+通常フローさせると各gridの下マージンをつける必要が出てきました。
+
+```
+ &:not(:last-child){
+    margin-bottom:$gutter-vertical;
+    @include respond(tab-port) {
+        margin-bottom: $gutter-vertical-small;
+    }
+  }
+```
+
+
+
+###  header部分の変更
+
+横幅サイズを小さくするとheader部分の傾斜が急すぎることに違和感を感じます。これを対策するために以下のことを実施します。
+
+```css
+@include respond(phone){
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    }
+```
+
+ナビボタンも少し離れて見えます。.navigation__buttonの設定を微調整します。
+
+```css
+@include respond(tab-port){
+            top:4rem;
+            right:4rem;
+}
+@include respond(phone) {
+            top: 3rem;
+            right: 3rem;
+}
+```
+
+.navigation__backgroundも同様にします。
+
+```css
+@include respond(tab-port) {
+            top: 4.5rem;
+            right: 4.5rem;
+ }
+@include respond(phone) {
+            top: 3.5rem;
+            right: 3.5rem;
+ }
+```
+
+
+
+この段階でiOS5で検証すると右に余計な余白が出てしまいます。これはstory sampleのセクションのカラムがは大きいためです。
+
+
+
+### footerの処理
+
+
+
+
+
+
+
+## 高解像度対応画像
+
+ロゴ画像の対応
+
+footerのロゴを高解像度対応にしました。imgタグにsrcset属性を使用して2つの画像ファイルのパスを記述します。1倍はファイル名の後に1xと記述します。
+
+2つ目のファイル指定は感まで区切って行い、2倍指定はファイル名の後に2xと記述します。
+
+アートディレクションを行うにはsourceタグを使用して記述します。ここではメディアクエリを使用できますので、ブレイクポイントで切り分けた時の表示画像を指定します。さらに高解像度用に複数の画像を指定できます。
+
+
+
+```css
+<picture class="footer__logo">
+  <source srcset="img/logo-red-1x.png 1x,img/logo-red-2x.png 2x" media="(max-width:37.5em)">
+  <img srcset="img/logo-1x.png 1x,img/logo-2x.png 2x" alt="footer logo"　src="img/logo-1x.png">
+</picture>
+```
+
+
+
+別の記述をtrainの写真でも行なっています。こちらは同じ画像で300pxと1000pxのサイズのものを用意しています。画面の横幅次第で表示する画像のサイズを変更します。srcsetで2枚のサイズ違いの画像を指定します。ファイル名の後にサイズを300wのように記述します。
+
+続いてsaizes属性でメディアクエリを指定してその後に表示したいサイズをvw単位で記述しています。
+
+src属性はこれらの記述に対応してないブラウザ向けの記述です。
+
+
+
+```css
+<img srcset="img/train1_small.jpg 300w,img/train1.jpg 1000w" sizes="(max-width:900px) 20vw,(max-width:600px) 30vw,300px" alt="" class="composition__photo composition__photo--p1" src="img/train1.jpg">
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 尚、このページのデザインは[Jonas Schmedtmann氏](http://codingheroes.io/)の作成したページを参考にして内容を書き換えたものです。
