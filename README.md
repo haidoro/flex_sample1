@@ -548,7 +548,77 @@ src属性はこれらの記述に対応してないブラウザ向けの記述�
 
 
 
+###live-sarver起動とSASSコンパイルのWatch稼働
 
+開発時の開始コマンド
+
+```
+npm run start
+```
+
+### style.comp.cssファイル作成
+
+次のコマンドを入力
+
+```
+npm run compile:sass
+```
+
+### 複数CSSファイルの結合
+
+ファイルの結合はSASSファイルとしておいて、結合する方法もあります。
+concatを活用するにはインストールが必要です。  
+
+```
+npm install concat --save-dev
+```
+
+package.jsonに記述されたいる内容はstyle.comp.cssファイルとicon-font.cssを結合するものですが、今回のサンプルではicon-font.cssを使用していませんので実行してもエラー表示になります。
+icon-font.cssが存在する場合は、次のコマンドを入力
+
+```
+npm run concat:css
+```
+
+### autoprefixerの導入
+
+autoprefixerをインストールしておく必要があります。
+
+```
+npm install autoprefixer --save-dev
+```
+
+```
+npm install postcss-cli --save-dev
+```
+
+今回のサンプルはstyle.concat.cssを作成していませんので実行するとエラーになります。実行するにはstyle.comp.cssをコピー後リネームしてstyle.concat.cssを予め作成しておきます。
+
+```
+npm run prefix:css
+```
+
+### compress:css作成
+
+style.cssとして圧縮ファイルが作成されます。
+
+```
+npm run compress:css
+```
+
+以上の4つの動作をbuildコマンドで実行できます。
+
+予めnpm-run-allを導入しておく必要があります。
+
+```
+npm install npm-run-all --save-dev
+```
+
+4つまとめて実行は以下コマンド
+
+```
+npm run build:css
+```
 
 
 
